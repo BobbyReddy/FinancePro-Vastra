@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vastra — The Demo Platform Enterprise Teams Rely On</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        /* ── CSS Variables ── */
+        :root {
+            --color-blue-0: #2d2152;
+            --color-pink-0: #ff56bb;
+            --color-purple-0: #b880ff;
+            --color-purple-highlight: #a270e0;
+            --color-purple-2: #c7c5d3;
+            --color-purple-3: #eeeafb;
+            --color-white: #fff;
+            --color-red-1: #ff7a92;
+            --color-yellow-1: #fffb8d;
+            --color-green-1: #8ed8b8;
+            --color-grey-1: #d3d1c2;
+            --color-eggshell: #f9f7f0;
+            --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
+            --border-radius: 8px;
+            --border-radius-large: 18px;
+            --border-radius-xl: 50px;
+            --container-content-max: 1036px;
+            --container-wide-max: 1264px;
+            --container-edge-max: 1342px;
+        }
+
+        /* ── Reset ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--color-blue-0);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        ::selection { background-color: var(--color-pink-0); color: var(--color-blue-0); }
+
+        /* ── Container ── */
+        .container { max-width: var(--container-wide-max); margin: 0 auto; padding: 0 48px; }
+        .container--narrow { max-width: var(--container-content-max); margin: 0 auto; padding: 0 48px; }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(45,33,82,0.06);
+            height: 72px;
+            display: flex;
+            align-items: center;
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: var(--container-edge-max);
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--color-blue-0);
+        }
+        .logo svg { width: 36px; height: 36px; }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-blue-0);
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 0.65; }
+        .header-cta { display: flex; align-items: center; gap: 12px; }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--border-radius-xl);
+            padding: 10px 24px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, opacity 0.2s;
+        }
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn:focus-visible { outline: 2px solid var(--color-purple-highlight); outline-offset: 2px; }
+        .btn--primary {
+            background: var(--color-blue-0);
+            color: var(--color-white);
+            box-shadow: 0 2px 8px rgba(45,33,82,0.18), 0 1px 2px rgba(45,33,82,0.12);
+        }
+        .btn--primary:hover { box-shadow: 0 6px 20px rgba(45,33,82,0.22), 0 2px 4px rgba(45,33,82,0.15); }
+        .btn--secondary {
+            background: transparent;
+            color: var(--color-blue-0);
+            border: 1.5px solid var(--color-purple-2);
+        }
+        .btn--secondary:hover { border-color: var(--color-blue-0); }
+        .btn--ghost {
+            background: transparent;
+            color: var(--color-blue-0);
+            font-weight: 400;
+        }
+        .btn--large { padding: 14px 32px; font-size: 15px; }
+        .btn--white {
+            background: var(--color-white);
+            color: var(--color-blue-0);
+            box-shadow: 0 2px 8px rgba(45,33,82,0.10);
+        }
+        .btn--white:hover { box-shadow: 0 6px 20px rgba(45,33,82,0.15); }
+        .btn--purple-outline {
+            background: transparent;
+            color: var(--color-white);
+            border: 1.5px solid rgba(255,255,255,0.35);
+        }
+        .btn--purple-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Section ── */
+        .section {
+            position: relative;
+            padding: 80px 0;
+            overflow: hidden;
+        }
+        .section--sm { padding: 48px 0; }
+        .section--lg { padding: 100px 0; }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 64px 0 48px;
+            text-align: center;
+            position: relative;
+            background: var(--color-white);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(ellipse at center, rgba(184,128,255,0.08) 0%, rgba(255,86,187,0.04) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero .container { position: relative; z-index: 1; }
+
+        /* ── Floating Background Paths ── */
+        .hero-paths-wrap {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .hero-paths-wrap svg {
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+        }
+        @keyframes floatPaths {
+            0% {
+                transform: translateY(0px) translateX(0px);
+                opacity: var(--path-opacity-start);
+            }
+            25% {
+                transform: translateY(-8px) translateX(3px);
+                opacity: var(--path-opacity-peak);
+            }
+            50% {
+                transform: translateY(-2px) translateX(-2px);
+                opacity: var(--path-opacity-start);
+            }
+            75% {
+                transform: translateY(6px) translateX(4px);
+                opacity: var(--path-opacity-peak);
+            }
+            100% {
+                transform: translateY(0px) translateX(0px);
+                opacity: var(--path-opacity-start);
+            }
+        }
+        @keyframes flowHighlight {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -1200; }
+        }
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-purple-3);
+            color: var(--color-purple-highlight);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 16px;
+            border-radius: var(--border-radius-xl);
+            margin-bottom: 24px;
+        }
+        .hero__badge svg { width: 16px; height: 16px; }
+        .hero__title {
+            font-size: 56px;
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero__title .gradient-text {
+            background: linear-gradient(135deg, var(--color-purple-highlight) 0%, var(--color-pink-0) 50%, #f5a623 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero__subtitle {
+            font-size: 17px;
+            font-weight: 300;
+            line-height: 1.7;
+            color: rgba(45,33,82,0.7);
+            max-width: 560px;
+            margin: 0 auto 32px;
+        }
+        .hero__actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+        .hero__image-wrap {
+            position: relative;
+            max-width: 960px;
+            margin: 0 auto;
+            border-radius: var(--border-radius-large);
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(162,112,224,0.18), 0 4px 16px rgba(45,33,82,0.08), 0 0 0 1px rgba(162,112,224,0.12);
+            border: 1.5px solid rgba(162,112,224,0.18);
+        }
+        .hero__image-wrap img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ── Social Proof Bar ── */
+        .social-proof {
+            padding: 48px 0 56px;
+            text-align: center;
+            background: var(--color-white);
+        }
+        .social-proof__label {
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(45,33,82,0.5);
+            letter-spacing: 0.02em;
+            margin-bottom: 28px;
+        }
+        .social-proof__logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            opacity: 0.45;
+        }
+        .social-proof__logos span {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-blue-0);
+            letter-spacing: 0.02em;
+        }
+
+        /* ── Features Section ── */
+        .features {
+            padding: 80px 0;
+            background: var(--color-white);
+        }
+        .features__header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-purple-highlight);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-size: 16px;
+            font-weight: 300;
+            color: rgba(45,33,82,0.65);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Feature Tabs */
+        .feature-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 48px;
+        }
+        .feature-tab {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(45,33,82,0.6);
+            border-radius: var(--border-radius-xl);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            border: 1px solid transparent;
+        }
+        .feature-tab:hover { background: rgba(45,33,82,0.04); }
+        .feature-tab.active {
+            background: var(--color-blue-0);
+            color: var(--color-white);
+            font-weight: 500;
+        }
+
+        /* Feature Cards Grid */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .feature-card {
+            background: var(--color-white);
+            border: 1px solid rgba(45,33,82,0.08);
+            border-radius: var(--border-radius-large);
+            padding: 32px 28px;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(45,33,82,0.10), 0 2px 8px rgba(45,33,82,0.06);
+        }
+        .feature-card__icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        .feature-card__icon--purple { background: var(--color-purple-3); color: var(--color-purple-highlight); }
+        .feature-card__icon--pink { background: rgba(255,86,187,0.1); color: var(--color-pink-0); }
+        .feature-card__icon--gold { background: rgba(245,166,35,0.12); color: #e89b1c; }
+        .feature-card__title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .feature-card__desc {
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(45,33,82,0.6);
+            line-height: 1.65;
+        }
+
+        /* ── Experts Section ── */
+        .experts {
+            padding: 80px 0;
+            background: linear-gradient(180deg, #faf9ff 0%, var(--color-white) 100%);
+        }
+        .experts__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .expert-card {
+            background: var(--color-white);
+            border: 1px solid rgba(45,33,82,0.07);
+            border-radius: var(--border-radius-large);
+            padding: 32px 28px;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+        }
+        .expert-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(45,33,82,0.10);
+        }
+        .expert-card__icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+        .expert-card__title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .expert-card__desc {
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(45,33,82,0.6);
+            line-height: 1.65;
+        }
+
+        /* ── AI Engine Section ── */
+        .ai-engine {
+            padding: 100px 0;
+            background: var(--color-white);
+            text-align: center;
+        }
+        .ai-engine__visual {
+            position: relative;
+            max-width: 800px;
+            margin: 48px auto 0;
+            border-radius: var(--border-radius-large);
+            overflow: hidden;
+            background: linear-gradient(135deg, #f3efff 0%, #fff0f8 50%, #fff8e8 100%);
+            padding: 48px;
+            border: 1px solid rgba(45,33,82,0.06);
+        }
+        .ai-engine__nodes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .ai-node {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 20px 28px;
+            box-shadow: 0 4px 16px rgba(45,33,82,0.08);
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(45,33,82,0.06);
+        }
+        .ai-node__dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .ai-node__dot--purple { background: var(--color-purple-highlight); }
+        .ai-node__dot--pink { background: var(--color-pink-0); }
+        .ai-node__dot--gold { background: #f5a623; }
+        .ai-node__dot--green { background: var(--color-green-1); }
+
+        /* ── Testimonials ── */
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--color-white) 0%, #faf9ff 100%);
+        }
+        .testimonials__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 48px;
+        }
+        .testimonial-card {
+            background: var(--color-white);
+            border: 1px solid rgba(45,33,82,0.07);
+            border-radius: var(--border-radius-large);
+            padding: 36px 32px;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(45,33,82,0.08);
+        }
+        .testimonial-card__stars {
+            color: #f5a623;
+            font-size: 16px;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .testimonial-card__quote {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.75;
+            color: rgba(45,33,82,0.75);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        .testimonial-card__author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonial-card__avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-purple-3), rgba(255,86,187,0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-purple-highlight);
+        }
+        .testimonial-card__name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .testimonial-card__role {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(45,33,82,0.5);
+        }
+
+        /* ── CTA Section ── */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--color-blue-0);
+            color: var(--color-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(184,128,255,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,86,187,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-section .container { position: relative; z-index: 1; }
+        .cta-section .section-title { color: var(--color-white); }
+        .cta-section .section-subtitle { color: rgba(255,255,255,0.65); }
+        .cta-section__actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            background: var(--color-blue-0);
+            color: rgba(255,255,255,0.6);
+            padding: 56px 0 32px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .footer-brand .logo { color: var(--color-white); margin-bottom: 16px; }
+        .footer-brand p {
+            font-size: 13px;
+            line-height: 1.7;
+            max-width: 260px;
+        }
+        .footer-col__title {
+            color: var(--color-white);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 13px;
+            padding: 4px 0;
+            transition: opacity 0.2s;
+        }
+        .footer-col a:hover { opacity: 1; color: var(--color-white); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+        .footer-bottom a { margin-left: 20px; transition: opacity 0.2s; }
+        .footer-bottom a:hover { opacity: 1; color: var(--color-white); }
+
+        /* ── Animations ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in {
+            opacity: 0;
+            animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .animate-in--d1 { animation-delay: 0.1s; }
+        .animate-in--d2 { animation-delay: 0.2s; }
+        .animate-in--d3 { animation-delay: 0.3s; }
+        .animate-in--d4 { animation-delay: 0.4s; }
+        .animate-in--d5 { animation-delay: 0.5s; }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .hero__title { font-size: 44px; }
+            .section-title { font-size: 34px; }
+            .feature-cards, .experts__grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-inner { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .container, .container--narrow { padding: 0 24px; }
+            .header-inner { padding: 0 24px; }
+            .nav-links { display: none; }
+            .hero { padding: 40px 0 32px; }
+            .hero__title { font-size: 34px; }
+            .hero__subtitle { font-size: 15px; }
+            .section { padding: 56px 0; }
+            .section-title { font-size: 28px; }
+            .feature-cards, .experts__grid, .testimonials__grid { grid-template-columns: 1fr; }
+            .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .feature-tabs { flex-wrap: wrap; }
+            .hero__actions { flex-direction: column; }
+        }
+
+        /* ── Vastra Logo SVG inline ── */
+        .vastra-logo-mark {
+            width: 36px;
+            height: 36px;
+        }
+
+        /* ── Floating tag ── */
+        .floating-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--color-white);
+            border: 1px solid rgba(45,33,82,0.08);
+            border-radius: var(--border-radius-xl);
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-blue-0);
+            box-shadow: 0 2px 12px rgba(45,33,82,0.08);
+        }
+        .floating-tag__dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4ade80;
+        }
+
+        /* Divider line */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(45,33,82,0.08) 50%, transparent 100%);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── Header ─── -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <svg class="vastra-logo-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="100" x2="100" y2="0">
+                            <stop offset="0%" stop-color="#9b59b6"/>
+                            <stop offset="50%" stop-color="#e67e22"/>
+                            <stop offset="100%" stop-color="#f1c40f"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 10 L65 30 L80 10 L72 30 L90 35 L72 42 L80 60 L65 45 L50 65 L35 45 L20 60 L28 42 L10 35 L28 30 L20 10 L35 30 Z" fill="url(#logoGrad)" stroke="url(#logoGrad)" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M35 55 L25 75 L40 65 L50 85 L60 65 L75 75 L65 55" fill="url(#logoGrad)" stroke="url(#logoGrad)" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                Vastra
+            </a>
+            <nav class="nav-links">
+                <a href="#">Platform</a>
+                <a href="#">Solutions</a>
+                <a href="#">Resources</a>
+                <a href="#">Pricing</a>
+                <a href="#">Company</a>
+            </nav>
+            <div class="header-cta">
+                <a href="#" class="btn btn--ghost">Get Started</a>
+                <a href="#" class="btn btn--primary">Book a Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ─── Hero ─── -->
+    <section class="hero">
+        <!-- Animated Background Paths -->
+        <div class="hero-paths-wrap" aria-hidden="true">
+            <svg viewBox="0 0 1400 600" fill="none" preserveAspectRatio="xMidYMid slice" id="heroPaths"></svg>
+        </div>
+        <div class="container">
+            <div class="animate-in">
+                <span class="hero__badge">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3.5 1.5 5L8 11.5 3.5 14.5 5 9.5 1 6h5z"/></svg>
+                    New: Agentic AI Demo Engine
+                </span>
+            </div>
+            <h1 class="hero__title animate-in animate-in--d1">
+                The Demo Platform<br>
+                <span class="gradient-text">Enterprise Teams Rely on</span>
+            </h1>
+            <p class="hero__subtitle animate-in animate-in--d2">
+                Drive more revenue with a personalized experience that feels exactly like your product. No code required.
+            </p>
+            <div class="hero__actions animate-in animate-in--d3">
+                <a href="#" class="btn btn--primary btn--large">Get Started</a>
+                <a href="#" class="btn btn--secondary btn--large">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 3.5v9l6-4.5z"/></svg>
+                    Watch Video
+                </a>
+            </div>
+            <div class="hero__image-wrap animate-in animate-in--d4">
+                <div style="background: #f8f6ff; padding: 0; position: relative; width: 100%; aspect-ratio: 16/9;">
+                    <svg viewBox="0 0 960 540" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+                        <rect width="960" height="540" fill="#f8f6ff"/>
+                        <!-- Top nav bar -->
+                        <rect width="960" height="48" fill="#fff" opacity="0.9"/>
+                        <text x="24" y="30" font-family="Poppins,sans-serif" font-size="16" font-weight="600" fill="#a270e0">Vastra</text>
+                        <rect x="830" y="12" width="100" height="26" rx="13" fill="#2d2152"/>
+                        <text x="880" y="30" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="#fff" text-anchor="middle">Export PDF</text>
+                        <text x="700" y="30" font-family="Poppins,sans-serif" font-size="11" font-weight="400" fill="#8a87a0">Settings</text>
+                        <text x="760" y="30" font-family="Poppins,sans-serif" font-size="11" font-weight="400" fill="#8a87a0">Alerts</text>
+
+                        <!-- Sidebar -->
+                        <rect y="48" width="200" height="492" fill="#fff"/>
+                        <text x="20" y="78" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#8a87a0" letter-spacing="0.06em">OVERVIEW</text>
+                        <rect x="12" y="90" width="176" height="32" rx="8" fill="#eeeafb"/>
+                        <text x="36" y="111" font-family="Poppins,sans-serif" font-size="12" font-weight="500" fill="#a270e0">Dashboard</text>
+                        <text x="36" y="142" font-family="Poppins,sans-serif" font-size="12" font-weight="400" fill="#6b6880">Income & Revenue</text>
+                        <text x="36" y="164" font-family="Poppins,sans-serif" font-size="12" font-weight="400" fill="#6b6880">Expenses</text>
+                        <text x="36" y="186" font-family="Poppins,sans-serif" font-size="12" font-weight="400" fill="#6b6880">Liabilities</text>
+                        <text x="36" y="208" font-family="Poppins,sans-serif" font-size="12" font-weight="400" fill="#6b6880">Assets</text>
+                        <text x="20" y="240" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#8a87a0" letter-spacing="0.06em">REPORTS</text>
+                        <text x="36" y="264" font-family="Poppins,sans-serif" font-size="12" font-weight="400" fill="#6b6880">Balance Sheet</text>
+                        <text x="36" y="286" font-family="Poppins,sans-serif" font-size="12" font-weight="400" fill="#6b6880">Cash Flow</text>
+                        <text x="36" y="308" font-family="Poppins,sans-serif" font-size="12" font-weight="400" fill="#6b6880">P&L Statement</text>
+
+                        <!-- Stats row: 4 KPI cards -->
+                        <!-- Card 1: Total Assets -->
+                        <rect x="224" y="68" width="168" height="92" rx="12" fill="#fff"/>
+                        <text x="244" y="90" font-family="Poppins,sans-serif" font-size="11" font-weight="400" fill="#8a87a0">Total Assets</text>
+                        <text x="244" y="120" font-family="Poppins,sans-serif" font-size="24" font-weight="600" fill="#2d2152">$4.82M</text>
+                        <text x="244" y="142" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#4ade80">▲ 12.4% vs last qtr</text>
+
+                        <!-- Card 2: Total Liabilities -->
+                        <rect x="416" y="68" width="168" height="92" rx="12" fill="#fff"/>
+                        <text x="436" y="90" font-family="Poppins,sans-serif" font-size="11" font-weight="400" fill="#8a87a0">Total Liabilities</text>
+                        <text x="436" y="120" font-family="Poppins,sans-serif" font-size="24" font-weight="600" fill="#2d2152">$1.84M</text>
+                        <text x="436" y="142" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#ff7a92">▼ 3.1% vs last qtr</text>
+
+                        <!-- Card 3: Net Revenue -->
+                        <rect x="608" y="68" width="168" height="92" rx="12" fill="#fff"/>
+                        <text x="628" y="90" font-family="Poppins,sans-serif" font-size="11" font-weight="400" fill="#8a87a0">Net Revenue</text>
+                        <text x="628" y="120" font-family="Poppins,sans-serif" font-size="24" font-weight="600" fill="#2d2152">$892K</text>
+                        <text x="628" y="142" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#4ade80">▲ 24.6% vs last qtr</text>
+
+                        <!-- Card 4: Debt-to-Asset Ratio -->
+                        <rect x="800" y="68" width="136" height="92" rx="12" fill="#fff"/>
+                        <text x="816" y="90" font-family="Poppins,sans-serif" font-size="11" font-weight="400" fill="#8a87a0">Debt/Asset</text>
+                        <text x="816" y="120" font-family="Poppins,sans-serif" font-size="24" font-weight="600" fill="#a270e0">0.38</text>
+                        <text x="816" y="142" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#4ade80">Healthy</text>
+
+                        <!-- Revenue vs Expenses Chart -->
+                        <rect x="224" y="180" width="380" height="228" rx="12" fill="#fff"/>
+                        <text x="244" y="204" font-family="Poppins,sans-serif" font-size="12" font-weight="600" fill="#2d2152">Revenue vs Expenses</text>
+                        <text x="244" y="218" font-family="Poppins,sans-serif" font-size="9" font-weight="400" fill="#8a87a0">Last 8 months (in $K)</text>
+                        <!-- Y axis labels -->
+                        <text x="254" y="250" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="end">200</text>
+                        <text x="254" y="290" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="end">150</text>
+                        <text x="254" y="330" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="end">100</text>
+                        <text x="254" y="370" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="end">50</text>
+                        <!-- Grid lines -->
+                        <line x1="262" y1="247" x2="584" y2="247" stroke="#eeeafb" stroke-width="0.5"/>
+                        <line x1="262" y1="287" x2="584" y2="287" stroke="#eeeafb" stroke-width="0.5"/>
+                        <line x1="262" y1="327" x2="584" y2="327" stroke="#eeeafb" stroke-width="0.5"/>
+                        <line x1="262" y1="367" x2="584" y2="367" stroke="#eeeafb" stroke-width="0.5"/>
+                        <!-- X axis labels -->
+                        <text x="282" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Aug</text>
+                        <text x="322" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Sep</text>
+                        <text x="362" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Oct</text>
+                        <text x="402" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Nov</text>
+                        <text x="442" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Dec</text>
+                        <text x="482" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Jan</text>
+                        <text x="522" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Feb</text>
+                        <text x="562" y="392" font-family="Poppins,sans-serif" font-size="8" fill="#b0aec0" text-anchor="middle">Mar</text>
+                        <!-- Revenue line (purple) -->
+                        <polyline points="282,340 322,318 362,327 402,295 442,275 482,260 522,248 562,240" stroke="#a270e0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M282,340 L322,318 L362,327 L402,295 L442,275 L482,260 L522,248 L562,240 L562,380 L282,380 Z" fill="url(#chartGrad)" opacity="0.1"/>
+                        <defs><linearGradient id="chartGrad" x1="400" y1="240" x2="400" y2="380" gradientUnits="userSpaceOnUse"><stop stop-color="#a270e0"/><stop offset="1" stop-color="#a270e0" stop-opacity="0"/></linearGradient></defs>
+                        <!-- Expenses line (pink) -->
+                        <polyline points="282,358 322,350 362,355 402,342 442,338 482,330 522,325 562,318" stroke="#ff56bb" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 3"/>
+                        <!-- Legend -->
+                        <rect x="460" y="196" width="8" height="8" rx="2" fill="#a270e0"/>
+                        <text x="472" y="203" font-family="Poppins,sans-serif" font-size="9" fill="#6b6880">Revenue</text>
+                        <rect x="520" y="196" width="8" height="8" rx="2" fill="#ff56bb"/>
+                        <text x="532" y="203" font-family="Poppins,sans-serif" font-size="9" fill="#6b6880">Expenses</text>
+
+                        <!-- Asset Allocation Donut -->
+                        <rect x="628" y="180" width="308" height="228" rx="12" fill="#fff"/>
+                        <text x="648" y="204" font-family="Poppins,sans-serif" font-size="12" font-weight="600" fill="#2d2152">Asset Allocation</text>
+                        <text x="648" y="218" font-family="Poppins,sans-serif" font-size="9" font-weight="400" fill="#8a87a0">By category</text>
+                        <!-- Donut -->
+                        <circle cx="732" cy="310" r="52" stroke="#eeeafb" stroke-width="13" fill="none"/>
+                        <!-- Equities 42% -->
+                        <circle cx="732" cy="310" r="52" stroke="#a270e0" stroke-width="13" fill="none" stroke-dasharray="137.2 189.5" stroke-linecap="round" transform="rotate(-90 732 310)"/>
+                        <!-- Real Estate 25% -->
+                        <circle cx="732" cy="310" r="52" stroke="#ff56bb" stroke-width="13" fill="none" stroke-dasharray="81.7 245" stroke-dashoffset="-137.2" stroke-linecap="round" transform="rotate(-90 732 310)"/>
+                        <!-- Bonds 18% -->
+                        <circle cx="732" cy="310" r="52" stroke="#f5a623" stroke-width="13" fill="none" stroke-dasharray="58.8 267.9" stroke-dashoffset="-218.9" stroke-linecap="round" transform="rotate(-90 732 310)"/>
+                        <!-- Cash 15% -->
+                        <circle cx="732" cy="310" r="52" stroke="#8ed8b8" stroke-width="13" fill="none" stroke-dasharray="49 277.7" stroke-dashoffset="-277.7" stroke-linecap="round" transform="rotate(-90 732 310)"/>
+                        <text x="732" y="306" font-family="Poppins,sans-serif" font-size="20" font-weight="600" fill="#2d2152" text-anchor="middle">$4.8M</text>
+                        <text x="732" y="320" font-family="Poppins,sans-serif" font-size="9" font-weight="400" fill="#8a87a0" text-anchor="middle">Total Value</text>
+                        <!-- Legend -->
+                        <rect x="810" y="270" width="8" height="8" rx="2" fill="#a270e0"/>
+                        <text x="822" y="278" font-family="Poppins,sans-serif" font-size="9" fill="#6b6880">Equities 42%</text>
+                        <rect x="810" y="290" width="8" height="8" rx="2" fill="#ff56bb"/>
+                        <text x="822" y="298" font-family="Poppins,sans-serif" font-size="9" fill="#6b6880">Real Estate 25%</text>
+                        <rect x="810" y="310" width="8" height="8" rx="2" fill="#f5a623"/>
+                        <text x="822" y="318" font-family="Poppins,sans-serif" font-size="9" fill="#6b6880">Bonds 18%</text>
+                        <rect x="810" y="330" width="8" height="8" rx="2" fill="#8ed8b8"/>
+                        <text x="822" y="338" font-family="Poppins,sans-serif" font-size="9" fill="#6b6880">Cash 15%</text>
+
+                        <!-- Bottom table: Recent Transactions -->
+                        <rect x="224" y="424" width="712" height="100" rx="12" fill="#fff"/>
+                        <text x="244" y="446" font-family="Poppins,sans-serif" font-size="12" font-weight="600" fill="#2d2152">Recent Transactions</text>
+                        <!-- Table header -->
+                        <line x1="244" y1="456" x2="916" y2="456" stroke="#eeeafb" stroke-width="1"/>
+                        <text x="244" y="472" font-family="Poppins,sans-serif" font-size="9" font-weight="500" fill="#8a87a0">Description</text>
+                        <text x="480" y="472" font-family="Poppins,sans-serif" font-size="9" font-weight="500" fill="#8a87a0">Category</text>
+                        <text x="620" y="472" font-family="Poppins,sans-serif" font-size="9" font-weight="500" fill="#8a87a0">Amount</text>
+                        <text x="740" y="472" font-family="Poppins,sans-serif" font-size="9" font-weight="500" fill="#8a87a0">Status</text>
+                        <!-- Row 1 -->
+                        <text x="244" y="492" font-family="Poppins,sans-serif" font-size="10" font-weight="400" fill="#2d2152">AWS Infrastructure — Q1</text>
+                        <text x="480" y="492" font-family="Poppins,sans-serif" font-size="10" font-weight="400" fill="#6b6880">Operating</text>
+                        <text x="620" y="492" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#ff7a92">-$34,200</text>
+                        <rect x="740" y="482" width="52" height="18" rx="9" fill="#e6fbe6"/>
+                        <text x="766" y="494" font-family="Poppins,sans-serif" font-size="9" font-weight="500" fill="#22c55e" text-anchor="middle">Paid</text>
+                        <!-- Row 2 -->
+                        <text x="244" y="512" font-family="Poppins,sans-serif" font-size="10" font-weight="400" fill="#2d2152">Enterprise License — Acme Corp</text>
+                        <text x="480" y="512" font-family="Poppins,sans-serif" font-size="10" font-weight="400" fill="#6b6880">Revenue</text>
+                        <text x="620" y="512" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="#4ade80">+$128,500</text>
+                        <rect x="740" y="502" width="52" height="18" rx="9" fill="#eeeafb"/>
+                        <text x="766" y="514" font-family="Poppins,sans-serif" font-size="9" font-weight="500" fill="#a270e0" text-anchor="middle">Pending</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Social Proof ─── -->
+    <section class="social-proof">
+        <div class="container">
+            <p class="social-proof__label">Trusted by Revenue Teams at Leading B2B Enterprises</p>
+            <div class="social-proof__logos">
+                <span>Adobe</span>
+                <span>Salesforce</span>
+                <span>HubSpot</span>
+                <span>Databricks</span>
+                <span>Okta</span>
+                <span>Figma</span>
+                <span>Notion</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ─── Features ─── -->
+    <section class="features section">
+        <div class="container">
+            <div class="features__header">
+                <span class="section-label">Platform</span>
+                <h2 class="section-title">The Only Platform Built for Your<br>Entire Go-to-Market Team</h2>
+                <p class="section-subtitle">Empower every revenue team member with personalized, no-code demos that convert.</p>
+            </div>
+
+            <div class="feature-tabs">
+                <div class="feature-tab active">Sales</div>
+                <div class="feature-tab">Marketing</div>
+                <div class="feature-tab">Presales</div>
+                <div class="feature-tab">RevOps</div>
+            </div>
+
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-card__icon feature-card__icon--purple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                    </div>
+                    <h3 class="feature-card__title">Personalized Demos</h3>
+                    <p class="feature-card__desc">Create tailored product demos for every prospect without writing a single line of code.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card__icon feature-card__icon--pink">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3 class="feature-card__title">Instant Engagement</h3>
+                    <p class="feature-card__desc">Share interactive demos instantly via link. No downloads, no waiting, no friction for your buyers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card__icon feature-card__icon--gold">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h3 class="feature-card__title">Demo Analytics</h3>
+                    <p class="feature-card__desc">Track how prospects engage with every demo. Understand what resonates and optimize your approach.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card__icon feature-card__icon--purple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h3 class="feature-card__title">No-Code Editor</h3>
+                    <p class="feature-card__desc">Edit text, images, and flows with a simple visual editor. Update demos in minutes, not days.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card__icon feature-card__icon--pink">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="feature-card__title">Team Collaboration</h3>
+                    <p class="feature-card__desc">Enable your entire team to create, share, and manage demos from a single unified workspace.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card__icon feature-card__icon--gold">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                    </div>
+                    <h3 class="feature-card__title">Enterprise Security</h3>
+                    <p class="feature-card__desc">SOC 2 compliant with SSO, role-based access, and audit logs. Built for enterprise requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Experts ─── -->
+    <section class="experts section">
+        <div class="container">
+            <div class="features__header">
+                <span class="section-label">Why Vastra</span>
+                <h2 class="section-title">Insights from Experts at<br>Top B2B Revenue Teams</h2>
+                <p class="section-subtitle">See why leading enterprise teams trust Vastra to power their demo experiences.</p>
+            </div>
+            <div class="experts__grid">
+                <div class="expert-card">
+                    <div class="expert-card__icon feature-card__icon--purple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                    </div>
+                    <h3 class="expert-card__title">2x Faster Deal Cycles</h3>
+                    <p class="expert-card__desc">Teams using Vastra close deals twice as fast with interactive, self-serve demo experiences.</p>
+                </div>
+                <div class="expert-card">
+                    <div class="expert-card__icon feature-card__icon--pink">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 8 12 8s5-4 7.5-4a2.5 2.5 0 0 1 0 5H18"/><path d="M6 9v11a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9"/><path d="M12 8v13"/></svg>
+                    </div>
+                    <h3 class="expert-card__title">40% Higher Win Rate</h3>
+                    <p class="expert-card__desc">Personalized demos lead to dramatically higher conversion rates across enterprise sales cycles.</p>
+                </div>
+                <div class="expert-card">
+                    <div class="expert-card__icon feature-card__icon--gold">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+                    </div>
+                    <h3 class="expert-card__title">85% Less Prep Time</h3>
+                    <p class="expert-card__desc">Reduce demo preparation time from hours to minutes with reusable templates and AI assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── AI Demo Engine ─── -->
+    <section class="ai-engine section--lg">
+        <div class="container">
+            <div class="features__header">
+                <span class="section-label">AI-Powered</span>
+                <h2 class="section-title">Agentic AI Demo Engine</h2>
+                <p class="section-subtitle">Let AI build, personalize, and optimize your demos automatically — so your team can focus on selling.</p>
+            </div>
+            <div class="ai-engine__visual">
+                <div class="ai-engine__nodes">
+                    <div class="ai-node">
+                        <span class="ai-node__dot ai-node__dot--purple"></span>
+                        Auto-Personalize
+                    </div>
+                    <div class="ai-node">
+                        <span class="ai-node__dot ai-node__dot--pink"></span>
+                        Smart Guides
+                    </div>
+                    <div class="ai-node">
+                        <span class="ai-node__dot ai-node__dot--gold"></span>
+                        Demo Generation
+                    </div>
+                    <div class="ai-node">
+                        <span class="ai-node__dot ai-node__dot--green"></span>
+                        Engagement Scoring
+                    </div>
+                </div>
+                <div style="margin-top: 32px; padding: 24px; background: var(--color-white); border-radius: 12px; border: 1px solid rgba(45,33,82,0.06);">
+                    <p style="font-size: 14px; color: rgba(45,33,82,0.6); font-weight: 300; line-height: 1.7;">Vastra's AI engine analyzes your prospect's industry, role, and pain points to automatically generate tailored demo flows — no manual configuration needed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Testimonials ─── -->
+    <section class="testimonials section">
+        <div class="container">
+            <div class="features__header">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Here's what our customers think about Vastra</h2>
+            </div>
+            <div class="testimonials__grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-card__quote">"Vastra completely transformed our demo process. We went from spending hours preparing demos to having personalized experiences ready in minutes."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">SJ</div>
+                        <div>
+                            <div class="testimonial-card__name">Sarah Johnson</div>
+                            <div class="testimonial-card__role">VP of Sales, TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-card__quote">"The AI demo engine is a game-changer. It understands our prospects better than we do and creates demos that actually convert at scale."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">MR</div>
+                        <div>
+                            <div class="testimonial-card__name">Michael Rodriguez</div>
+                            <div class="testimonial-card__role">Head of Presales, DataFlow</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-card__quote">"Our win rate increased 40% within the first quarter of using Vastra. The personalized demo experience makes all the difference."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">EW</div>
+                        <div>
+                            <div class="testimonial-card__name">Emily Wang</div>
+                            <div class="testimonial-card__role">CRO, CloudSync</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-card__quote">"Rolling out Vastra to our enterprise sales team was seamless. The analytics alone have given us insights we never had before."</p>
+                    <div class="testimonial-card__author">
+                        <div class="testimonial-card__avatar">DK</div>
+                        <div>
+                            <div class="testimonial-card__name">David Kim</div>
+                            <div class="testimonial-card__role">Director of RevOps, ScaleUp</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Bottom CTA ─── -->
+    <section class="cta-section">
+        <div class="container">
+            <span class="section-label" style="color: rgba(255,255,255,0.5);">Get Started</span>
+            <h2 class="section-title">Ready to transform<br>your demo experience?</h2>
+            <p class="section-subtitle">Join hundreds of enterprise teams already closing deals faster with Vastra.</p>
+            <div class="cta-section__actions">
+                <a href="#" class="btn btn--white btn--large">Book a Demo</a>
+                <a href="#" class="btn btn--purple-outline btn--large">Start Free Trial</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <svg class="vastra-logo-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 10 L65 30 L80 10 L72 30 L90 35 L72 42 L80 60 L65 45 L50 65 L35 45 L20 60 L28 42 L10 35 L28 30 L20 10 L35 30 Z" fill="url(#logoGrad)" stroke="url(#logoGrad)" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M35 55 L25 75 L40 65 L50 85 L60 65 L75 75 L65 55" fill="url(#logoGrad)" stroke="url(#logoGrad)" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                        Vastra
+                    </a>
+                    <p>The demo platform that enterprise revenue teams rely on to close deals faster.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col__title">Platform</h4>
+                    <a href="#">Interactive Demos</a>
+                    <a href="#">Demo Analytics</a>
+                    <a href="#">AI Demo Engine</a>
+                    <a href="#">Integrations</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col__title">Resources</h4>
+                    <a href="#">Blog</a>
+                    <a href="#">Case Studies</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Webinars</a>
+                    <a href="#">Help Center</a>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col__title">Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Partners</a>
+                    <a href="#">Press</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Vastra. All rights reserved.</span>
+                <div>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ─── Scroll Animation Observer ─── -->
+    <script>
+        // Tab switching
+        document.querySelectorAll('.feature-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.feature-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .expert-card, .testimonial-card, .ai-node').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+            observer.observe(el);
+        });
+    </script>
+
+    <!-- Background Paths Generator -->
+    <script>
+    (function() {
+        const NS = 'http://www.w3.org/2000/svg';
+        const svg = document.getElementById('heroPaths');
+        if (!svg) return;
+
+        const lineCount = 18;
+        // viewBox is 1400 x 600
+        // Lines: start left-middle, swoop down, deflect up, exit right
+
+        for (let i = 0; i < lineCount; i++) {
+            const t = i / (lineCount - 1); // 0 → 1 normalized
+
+            // Start point: left edge, spread vertically around center (y ~200–400)
+            const startX = -40;
+            const startY = 220 + t * 160; // evenly spaced 220→380
+
+            // Bottom of the swoop: center-ish, dips down
+            const dipX = 500 + t * 80;
+            const dipY = 420 + t * 60; // dip depth varies per line
+
+            // Deflection point: curves back up toward upper-right
+            const riseX = 950 - t * 60;
+            const riseY = 180 - t * 80; // rises to different heights
+
+            // End point: right edge, upper area
+            const endX = 1440;
+            const endY = 140 + t * 120; // exit spread 140→260
+
+            // Cubic bezier with two curves: down-swoop then up-deflect
+            const d = `M${startX} ${startY} C${startX + 250} ${startY + 120 + t * 40}, ${dipX - 150} ${dipY}, ${dipX} ${dipY} C${dipX + 150} ${dipY}, ${riseX - 200} ${riseY + 60}, ${riseX} ${riseY} C${riseX + 150} ${riseY - 30}, ${endX - 200} ${endY}, ${endX} ${endY}`;
+
+            const strokeW = (0.6 + t * 0.5).toFixed(2);
+            const baseOpacity = (0.05 + t * 0.015).toFixed(3);
+
+            // Layer 1: Solid base line — always visible
+            const basePath = document.createElementNS(NS, 'path');
+            basePath.setAttribute('d', d);
+            basePath.setAttribute('stroke', 'var(--color-purple-0)');
+            basePath.setAttribute('stroke-width', strokeW);
+            basePath.setAttribute('stroke-opacity', baseOpacity);
+            basePath.setAttribute('fill', 'none');
+            svg.appendChild(basePath);
+
+            // Layer 2: Flowing highlight traveling along the line
+            const hlPath = document.createElementNS(NS, 'path');
+            hlPath.setAttribute('d', d);
+            hlPath.setAttribute('stroke', 'var(--color-purple-0)');
+            hlPath.setAttribute('stroke-width', (parseFloat(strokeW) + 0.4).toFixed(2));
+            hlPath.setAttribute('stroke-opacity', (parseFloat(baseOpacity) * 2.2).toFixed(3));
+            hlPath.setAttribute('fill', 'none');
+            hlPath.setAttribute('stroke-linecap', 'round');
+            hlPath.setAttribute('stroke-dasharray', '500 1000');
+            const duration = 8 + i * 0.4;
+            const delay = -(i * 1.5);
+            hlPath.style.animation = `flowHighlight ${duration}s linear ${delay}s infinite`;
+            hlPath.style.willChange = 'stroke-dashoffset';
+            svg.appendChild(hlPath);
+        }
+
+        // Gentle float on container
+        svg.style.setProperty('--path-opacity-start', '0.85');
+        svg.style.setProperty('--path-opacity-peak', '1');
+        svg.style.animation = 'floatPaths 35s cubic-bezier(0.45, 0.05, 0.55, 0.95) 0s infinite';
+    })();
+    </script>
+
+</body>
+</html>
